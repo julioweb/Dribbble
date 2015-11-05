@@ -1,0 +1,106 @@
+<!DOCTYPE>
+<html lang="pt-br" ng-app="dribbbleShots">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dribbble Shots</title>
+    <link href="components/bootstrap-3.3.5/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <link href="css/default.css" type="text/css" rel="stylesheet" />
+    <script src="components/angular/angular-1.4.7.min.js" type="application/javascript"></script>
+    <script src="js/controllers/shotsController.js" type="application/javascript"></script>
+</head>
+
+<body ng-controller="dribbbleShotsCtrl">
+    <div class="waiting" ng-show="loading">
+        <div class="loading">
+            <img src="img/loading_32x32.gif" alt="Loading..." title="Loading..." /> <h4>Loading...</h4>
+        </div>       
+    </div>
+    <div class="wrap">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#" ng-bind="title"></a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Popular Shots <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <section class="main-content container">           
+            <div class="row">
+                <div ng-repeat="shot in shotList" class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                    <div class="thumbnail">
+                        <img src="{{shot.images.teaser}}" alt="{{shot.title}}" title="{{shot.title}}" />
+                        <div class="caption">
+                            <h4>{{shot.title}}</h4>
+                            <p>
+                                <button type="button" class="btn btn-primary" ng-click="GetDetailShot(shot.id)" data-toggle="modal" data-target="#detailModal">Details</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class=col-xs-12>
+                    <button type="button" class="btn btn-info btn-lg btn-block" ng-click="GetMoreShots()">+ More Shots</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+       <div class="container">
+            <div class="row">
+               <div class="col-xs-12">
+                   <small>® 2015 - @juliowebnet</small>
+               </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" ng-model="shotDetail">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="detailModalLabel">{{shotDetail.title}}</h4>
+                </div>
+                <div class="modal-body">
+                   <div id="avatar" class="row">
+                       <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+                           <img src="{{shotDetail.user.avatar_url}}" alt="{{shotDetail.user.name}}" title="{{shotDetail.user.name}}" class="img-circle img-responsive">
+                       </div>
+                       <div class="col-xs-8 col-sm-10 col-md-10 col-lg-10">
+                           <h4>{{shotDetail.user.name}}<br /><small>{{shotDetail.user.username}}</small></h4>
+                       </div>
+                   </div>
+                    <div class="row">
+                        <div class="col-xs-12" ng-bind-html="renderHtml(shotDetail.description)"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="components/jquery-2.1.1/jquery.min.js" type="application/javascript"></script>
+    <script src="components/bootstrap-3.3.5/js/bootstrap.min.js" type="application/javascript"></script>
+</body>
+
+</html>
